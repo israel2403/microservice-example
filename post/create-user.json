@@ -1,5 +1,6 @@
 {
-	"departmentName":"IT",
-	"departmentAddress":"3rd Cross, First Street",
-	"departmentCode":"IT-006"
+    "firstName": "Israel",
+    "lastName": "Huerta",
+    "email": "israelhf24@gmail.com",
+    "departmentId": 1
 }
