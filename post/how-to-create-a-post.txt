@@ -1,0 +1,2 @@
+curl -d "@create-user.json" -H "Content-Type: application/json"  -X POST  http://localhost:8080/departments/
+{"departmentId":1,"departmentName":"IT","departmentAddress":"3rd Cross, First Street","departmentCode":"IT-006 "}
