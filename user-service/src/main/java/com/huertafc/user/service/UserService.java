@@ -25,7 +25,7 @@ public class UserService {
 	public UserDTO saveUser(final UserForm userForm) {
 		log.info("Inside saveUser of userService");
 		final User user = new User(userForm.getFirstName(), userForm.getLastName(), userForm.getEmail(), userForm.getDepartmentId());
-		userRepository.save(user);
+		userRepository.create(user);
 		return UserDTO.builder()
 				.userId(user.getUserId())
 				.firstName(user.getFirstName())
@@ -36,9 +36,10 @@ public class UserService {
 	}
 	
 	public ResponseTemplateVO getUserWithDepartment(final Long userId) {
-		final User user = userRepository.getOne(userId);
+		log.info("Inside getUserWithDepartment of userService");
+		final User user = userRepository.findOne(userId);
 		log.info(user.toString());
-		final DepartmentForm departmentForm = restTemplate.getForObject("http://localhost:9001/departments/".concat(userId.toString()), DepartmentForm.class);
+		final DepartmentForm departmentForm = restTemplate.getForObject("http://DEPARTMENT-SERVICE/departments/".concat(userId.toString()), DepartmentForm.class);
 		return createResponseTemplateVO(user, departmentForm);
 	}
 	

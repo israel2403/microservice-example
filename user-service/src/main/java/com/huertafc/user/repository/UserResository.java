@@ -1,11 +1,7 @@
 package com.huertafc.user.repository;
 
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
-
 import com.huertafc.user.entity.User;
 
-@Repository
-public interface UserResository extends JpaRepository<User, Long>, UserRepositoryCustom{
+public interface UserResository extends IGenericDao<User>{
 
 }
