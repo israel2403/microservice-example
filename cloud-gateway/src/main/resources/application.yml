@@ -4,3 +4,46 @@ server:
 spring:
   application:
     name: API-GATEWAY
+  cloud:
+    gateway:
+      routes:
+      - id: USER-SERVICE
+        uri: lb://USER-SERVICE
+        predicates:
+          - Path=/users/**
+        filters:
+          - name: CircuitBraker
+            args:
+              name: USER-SERVICE
+              fallbackuri: forward:/userFallBackMethodController
+      - id: DEPARTMENT-SERVICE
+        uri: lb://DEPARTMENT-SERVICE
+        predicates:
+          - Path=/departments/**
+        filters:
+          - name: CircuitBraker
+            args:
+              name: DEPARTMENT-SERVICE
+              fallbackuri: forward:/departmentFallBackMethodController
+              
+hystrix:
+  command:
+    fallbackcmd:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 4000
+management:
+  endpoints:
+    web:
+      exposure:
+        include: hystrix.stream
+    
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+  instance:
+    hostname: localhost
